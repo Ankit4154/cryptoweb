@@ -1,3 +1,0 @@
-# cryptoweb
-
-Crypto web application
