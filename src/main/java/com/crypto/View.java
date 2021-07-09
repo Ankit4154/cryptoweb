@@ -1,5 +1,6 @@
 package com.crypto;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.crypto.constants.KidFriendlyStatus;
@@ -8,8 +9,11 @@ import com.crypto.controllers.BookmarkController;
 import com.crypto.entities.Bookmark;
 import com.crypto.entities.User;
 import com.crypto.partner.Shareable;
+import com.crypto.services.BookmarkService;
 
 public class View {
+	
+	
 
 	public static void browse(User user, List<List<Bookmark>> bookmarks) {
 		System.out.println("\n" + user.getEmail() + " is browsing items.");
@@ -65,6 +69,10 @@ public class View {
 
 	private static boolean getBookmarkDecision(Bookmark bookmark) {
 		return Math.random() < 0.5 ? true : false;
+	}
+
+	public static void getBooks() {
+		BookmarkService.getInstance().getBooks(false, 5);
 	}
 
 	/*

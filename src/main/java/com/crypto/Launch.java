@@ -45,8 +45,9 @@ public class Launch {
 	private static void start() {
 		//System.out.println("\n 2. Bookmarking ...");
 		for (User user : users) {
-			View.browse(user, bookmarks);
+			//View.browse(user, bookmarks);
 			//View.bookmark(user, bookmarks);
+			View.getBooks();
 		}
 	}
 

@@ -50,13 +50,14 @@ public class BookmarkService {
 
 	}
 
-	public Book createBook(long id, String title, String profileUrl, int publicationYear, String publisher,
+	public Book createBook(long id, String title, String imageUrl, int publicationYear, String publisher,
 			String[] authors, BookGenre genre, double amazonRating) {
 
 		Book book = new Book();
 		book.setId(id);
 		book.setTitle(title);
-		book.setProfileUrl(profileUrl);
+		//book.setProfileUrl(profileUrl);
+		book.setImageUrl(imageUrl);
 		book.setPublicationYear(publicationYear);
 		book.setPublisher(publisher);
 		book.setAuthors(authors);
@@ -174,27 +175,32 @@ public class BookmarkService {
 
 				long id = rs.getLong("id");
 				String title = rs.getString("title");
-				String profileUrl = rs.getString("image_url");
+				String imageUrl = rs.getString("image_url");
 				int publicationYear = rs.getInt("publication_year");
 				String publisher = rs.getString("name");
 				String[] authors = rs.getString("authors").split(",");
 				int genreId = rs.getInt("book_genre_id");
 				BookGenre genre = BookGenre.values()[genreId];
 				double amazonRating = rs.getDouble("amazon_rating");
+				
 
 				//Date createdDate = rs.getDate("created_date");
+				/*System.out.println("createdDate: " + createdDate);
+				*/
+				System.out.println("id: " + id + ", title: " + title + ", publication year: " + publicationYear
+						+ ", publisher: " + publisher + ", authors: " + String.join(", ", authors) + ", genre: " + genre
+						+ ", amazonRating: " + amazonRating);
 				
-				Bookmark bookmark = BookmarkService.getInstance().createBook(id, title, profileUrl, publicationYear, publisher,
+				Bookmark bookmark = BookmarkService.getInstance().createBook(id, title, imageUrl, publicationYear, publisher,
 						authors, genre, amazonRating);
 				result.add(bookmark);
 			}
-
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 }

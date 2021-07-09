@@ -37,7 +37,7 @@ public class BookmarkController extends HttpServlet {
 		System.out.println(list);
 
 		// 2. Forwarding to View
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/browse.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("browse.jsp");
 		dispatcher.forward(request, response);
 	}
 	
