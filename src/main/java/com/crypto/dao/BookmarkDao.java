@@ -27,21 +27,18 @@ public class BookmarkDao {
 
 	public void saveBookmark(UserBookmark userBookmark) {
 
+		if (userBookmark == null) {
+			System.out.println("User-Bookmark reference null");
+			return;
+		}
 		// Add data to DB
 		try {
 			if (userBookmark.getBookmark() instanceof Book) {
 				saveUserBook(userBookmark, stmt);
 			} else if (userBookmark.getBookmark() instanceof Movie) {
 				saveUserMovie(userBookmark, stmt);
-			} else if (userBookmark.getBookmark() instanceof WebLink) {
-				saveUserWebLink(userBookmark, stmt);
 			} else {
-				if (userBookmark == null) {
-					System.out.println("User-Bookmark reference null");
-					return;
-				}
-				System.out.println("User-Bookmark reference not-null : " + userBookmark);
-				System.out.println("User-Bookmark reference not-null : " + userBookmark.getUser().getFirstName());
+				saveUserWebLink(userBookmark, stmt);
 			}
 			// LocalConnection.closeConnection();
 		} catch (SQLException e) {
