@@ -132,13 +132,10 @@ public class BookmarkService {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=crypto", "sa2",
 					"Test@123");
-			if (conn != null) {
-				DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
-				System.out.println("Driver name: " + dm.getDriverName());
-				System.out.println("Driver version: " + dm.getDriverVersion());
-				System.out.println("Product name: " + dm.getDatabaseProductName());
-				System.out.println("Product version: " + dm.getDatabaseProductVersion());
+			if (conn == null) {
+				System.out.println("Null connection reference");
 			}
+
 			Statement stmt = conn.createStatement();
 			if (stmt == null) {
 				System.out.println("Null statement reference");
@@ -156,8 +153,8 @@ public class BookmarkService {
 						+ userId + " and u.id = ub.users_id) "
 						+ "group by b.id, b.title, b.image_url, b.publication_year, p.name, b.book_genre_id, b.amazon_rating, b.created_date";
 
-			} /*else {
-				query = "select b.id, b.title, b.publication_year, p.name, "
+			} else {
+				query = "select b.id, b.title, b.image_url, b.publication_year, p.name, "
 						+ "STUFF((SELECT ', ' + a.name FROM Author a join Book_Author ba "
 						+ "		   on a.id = ba.author_id and ba.book_id=b.id "
 						+ "        FOR XML PATH('')), 1, 2, '') as authors, "
@@ -165,9 +162,9 @@ public class BookmarkService {
 						+ "Book_Author ba where b.publisher_id=p.id and b.id = ba.book_id and ba.author_id = a.id "
 						+ "and b.id IN (select ub.book_id from Users u, Users_Book ub where u.id = "
 						+ userId + " and u.id = ub.users_id) "
-						+ "group by b.id, b.title, b.publication_year, p.name, b.book_genre_id, b.amazon_rating, b.created_date";
+						+ "group by b.id, b.title, b.image_url, b.publication_year, p.name, b.book_genre_id, b.amazon_rating, b.created_date";
 
-			}*/
+			}
 			
 			ResultSet rs = stmt.executeQuery(query);
 			
@@ -202,5 +199,9 @@ public class BookmarkService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public Bookmark getBook(long bookId) {
+		return bookmarkDao.getBook(bookId);
 	}
 }

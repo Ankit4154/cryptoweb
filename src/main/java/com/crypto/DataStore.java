@@ -21,6 +21,7 @@ import com.crypto.constants.UserType;
 import com.crypto.constants.Gender;
 import com.crypto.constants.MovieGenre;
 import com.crypto.constants.UserType;
+import com.crypto.entities.Book;
 import com.crypto.entities.Bookmark;
 import com.crypto.entities.User;
 import com.crypto.entities.UserBookmark;
@@ -62,7 +63,7 @@ public class DataStore {
 			loadBooks(stmt);
 			loadMovies(stmt);
 			loadWebLinks(stmt);
-			//LocalConnection.closeConnection();
+			// LocalConnection.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -84,11 +85,13 @@ public class DataStore {
 			int userTypeId = rs.getInt("user_type_id");
 			UserType userType = UserType.values()[userTypeId];
 			Date createdDate = rs.getDate("created_date");
-			/*System.out.println("Created date: " + createdDate);
-
-			System.out.println("id: " + id + ", email: " + email + ", password: " + password + ", first name: "
-					+ firstName + ", last name : " + lastName + ", gender: " + gender + ", user type: " + userType);
-			*/
+			/*
+			 * System.out.println("Created date: " + createdDate);
+			 * 
+			 * System.out.println("id: " + id + ", email: " + email + ", password: " +
+			 * password + ", first name: " + firstName + ", last name : " + lastName +
+			 * ", gender: " + gender + ", user type: " + userType);
+			 */
 			User user = UserService.getInstance().createUser(id, email, password, firstName, lastName, gender,
 					userType);
 			users.add(user);
@@ -144,10 +147,12 @@ public class DataStore {
 			String url = rs.getString("url");
 			String host = rs.getString("host");
 			Date createdDate = rs.getDate("created_date");
-			/*System.out.println("Created date: " + createdDate);
-
-			System.out.println("id: " + id + ", title: " + title + ", url: " + url + ", host: " + host);
-			*/
+			/*
+			 * System.out.println("Created date: " + createdDate);
+			 * 
+			 * System.out.println("id: " + id + ", title: " + title + ", url: " + url +
+			 * ", host: " + host);
+			 */
 			Bookmark bookmark = BookmarkService.getInstance().createWebLink(id, title, url, host);
 			bookmarkList.add(bookmark);
 		}
@@ -216,12 +221,14 @@ public class DataStore {
 			double amazonRating = rs.getDouble("amazon_rating");
 
 			Date createdDate = rs.getDate("created_date");
-			/*System.out.println("createdDate: " + createdDate);
-
-			System.out.println("id: " + id + ", title: " + title + ", publication year: " + publicationYear
-					+ ", publisher: " + publisher + ", authors: " + String.join(", ", authors) + ", genre: " + genre
-					+ ", amazonRating: " + amazonRating);
-			*/
+			/*
+			 * System.out.println("createdDate: " + createdDate);
+			 * 
+			 * System.out.println("id: " + id + ", title: " + title + ", publication year: "
+			 * + publicationYear + ", publisher: " + publisher + ", authors: " +
+			 * String.join(", ", authors) + ", genre: " + genre + ", amazonRating: " +
+			 * amazonRating);
+			 */
 			Bookmark bookmark = BookmarkService.getInstance().createBook(id, title, "", publicationYear, publisher,
 					authors, genre, amazonRating);
 			bookmarkList.add(bookmark);
@@ -292,12 +299,14 @@ public class DataStore {
 			double imdbRating = rs.getDouble("imdb_rating");
 			Date createdDate = rs.getDate("created_date");
 
-			/*System.out.println("createdDate: " + createdDate);
-
-			System.out.println("id: " + id + ", title: " + title + ", release year: " + releaseYear + ", actors: "
-					+ String.join(", ", actors) + ", authors: " + String.join(", ", directors) + ", genre: " + genre
-					+ ", imdb rating: " + imdbRating);
-			*/
+			/*
+			 * System.out.println("createdDate: " + createdDate);
+			 * 
+			 * System.out.println("id: " + id + ", title: " + title + ", release year: " +
+			 * releaseYear + ", actors: " + String.join(", ", actors) + ", authors: " +
+			 * String.join(", ", directors) + ", genre: " + genre + ", imdb rating: " +
+			 * imdbRating);
+			 */
 			Bookmark bookmark = BookmarkService.getInstance().createMovie(id, title, "", releaseYear, actors, directors,
 					genre, imdbRating);
 			bookmarkList.add(bookmark);
@@ -339,5 +348,86 @@ public class DataStore {
 
 	public static void add(UserBookmark userBookmark) {
 		userBookmarks.add(userBookmark);
+	}
+
+	public static User getUser(long userId) {
+		String query = "SELECT id, email, password, first_name, last_name, gender_id, user_type_id, created_date "
+				+ "FROM Users where id = " + userId;
+
+		User user = null;
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				int genderId = rs.getInt("gender_id");
+				Gender gender = Gender.values()[genderId];
+				int userTypeId = rs.getInt("user_type_id");
+				UserType userType = UserType.values()[userTypeId];
+				Date createdDate = rs.getDate("created_date");
+				/*
+				 * System.out.println("Created date: " + createdDate);
+				 * 
+				 * System.out.println("id: " + id + ", email: " + email + ", password: " +
+				 * password + ", first name: " + firstName + ", last name : " + lastName +
+				 * ", gender: " + gender + ", user type: " + userType);
+				 */
+				user = UserService.getInstance().createUser(id, email, password, firstName, lastName, gender, userType);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	public static Bookmark getBook(long bookId) {
+		String query = "select b.id, b.title, b.image_url, b.publication_year, p.name, "
+				+ "STUFF((SELECT ', ' + a.name FROM Author a join Book_Author ba "
+				+ "		   on a.id = ba.author_id and ba.book_id=b.id "
+				+ "        FOR XML PATH('')), 1, 2, '') as authors, "
+				+ "b.book_genre_id, b.amazon_rating, b.created_date from Book b, Author a, Publisher p, "
+				+ "Book_Author ba where b.publisher_id=p.id and b.id = ba.book_id and ba.author_id = a.id "
+				+ "group by b.id, b.title, b.image_url, b.publication_year, p.name, b.book_genre_id, b.amazon_rating, b.created_date "
+				+ "having b.id = " + bookId;
+
+		Book book = null;
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				String title = rs.getString("title");
+				String imageUrl = rs.getString("image_url");
+				int publicationYear = rs.getInt("publication_year");
+				String publisher = rs.getString("name");
+				String[] authors = rs.getString("authors").split(",");
+				int genreId = rs.getInt("book_genre_id");
+				BookGenre genre = BookGenre.values()[genreId];
+				double amazonRating = rs.getDouble("amazon_rating");
+
+				Date createdDate = rs.getDate("created_date");
+
+				/*
+				 * System.out.println("createdDate: " + createdDate);
+				 * 
+				 * System.out.println("id: " + id + ", title: " + title + ", publication year: "
+				 * + publicationYear + ", publisher: " + publisher + ", authors: " +
+				 * String.join(", ", authors) + ", genre: " + genre + ", amazonRating: " +
+				 * amazonRating);
+				 */
+
+				book = BookmarkService.getInstance().createBook(id, title, imageUrl, publicationYear, publisher,
+						authors, genre, amazonRating);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Query : " + query);
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return book;
 	}
 }

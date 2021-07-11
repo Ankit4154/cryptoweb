@@ -1,5 +1,6 @@
 package com.crypto.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.crypto.DataStore;
@@ -10,5 +11,9 @@ public class UserDao {
 	public List<User> getUsers() {
 
 		return DataStore.getUsers();
+	}
+
+	public User getUser(long userId) {
+		return DataStore.getUser(userId);
 	}
 }

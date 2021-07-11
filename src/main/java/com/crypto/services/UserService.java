@@ -38,4 +38,8 @@ public class UserService extends User {
 		return userDao.getUsers();
 	}
 
+	public User getUser(long userId) {
+		return userDao.getUser(userId);
+	}
+
 }

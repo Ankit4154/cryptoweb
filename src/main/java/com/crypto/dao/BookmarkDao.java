@@ -14,13 +14,13 @@ import com.crypto.entities.UserBookmark;
 import com.crypto.entities.WebLink;
 
 public class BookmarkDao {
-	
+
 	private static Statement stmt;
 
 	public List<List<Bookmark>> getBookmarks() {
 		return DataStore.getBookmarks();
 	}
-	
+
 	public BookmarkDao() {
 		stmt = LocalConnection.getLocalConnection();
 	}
@@ -33,10 +33,17 @@ public class BookmarkDao {
 				saveUserBook(userBookmark, stmt);
 			} else if (userBookmark.getBookmark() instanceof Movie) {
 				saveUserMovie(userBookmark, stmt);
-			} else {
+			} else if (userBookmark.getBookmark() instanceof WebLink) {
 				saveUserWebLink(userBookmark, stmt);
+			} else {
+				if (userBookmark == null) {
+					System.out.println("User-Bookmark reference null");
+					return;
+				}
+				System.out.println("User-Bookmark reference not-null : " + userBookmark);
+				System.out.println("User-Bookmark reference not-null : " + userBookmark.getUser().getFirstName());
 			}
-			//LocalConnection.closeConnection();
+			// LocalConnection.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -104,7 +111,7 @@ public class BookmarkDao {
 
 			System.out.println("Updated rows : " + stmt.executeUpdate(query));
 
-			//LocalConnection.closeConnection();
+			// LocalConnection.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -118,15 +125,19 @@ public class BookmarkDao {
 			tableToUpdate = "WebLink";
 		}
 		try {
-			
+
 			String query = "update " + tableToUpdate + " set shared_by = " + userId + " where id = " + bookmark.getId();
-			
+
 			System.out.println("Updated rows : " + stmt.executeUpdate(query));
-			
-			//LocalConnection.closeConnection();
+
+			// LocalConnection.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public Bookmark getBook(long bookId) {
+		return DataStore.getBook(bookId);
 	}
 }
