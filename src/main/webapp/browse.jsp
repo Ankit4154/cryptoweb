@@ -8,16 +8,18 @@
 <body style="font-family: Arial; font-size: 20px;">
 	<div
 		style="height: 65px; align: center; background: #2075E5; font-family: Arial; color: white;"">
-		<br>
-		<b> <a href=""
+		<br> <b> <a href=""
 			style="font-family: garamond; font-size: 34px; margin: 0 0 0 10px; color: white; text-decoration: none;">Books<i>
 					Save it!</i></a></b>
 	</div>
 	<div
 		style="height: 25px; background: #2075E5; font-family: Arial; color: white;">
-		<b> <a href="<%=request.getContextPath()%>/bookmark/markedbooks"
-			style="font-size: 16px; color: white; margin-left: 1150px; text-decoration: none;">Saved
-				Books</a>
+		<b> 
+			<a href="<%=request.getContextPath()%>/bookmark/markedbooks"
+				style="font-size: 16px; color: white; margin-left: 1150px; text-decoration: none;">Saved
+					Books</a>
+			<a href="<%=request.getContextPath()%>/auth/logout"
+			style="font-size: 16px; color: white; margin-left: 10px; text-decoration: none;">Logout</a>
 		</b>
 	</div>
 	<br>
@@ -30,12 +32,9 @@
 				</td>
 
 				<td style="color: gray;">By <span style="color: #B13100;">${book.authors[0]}</span>
-					<br>
-				<br> Rating: <span style="color: #B13100;">${book.amazonRating}</span>
-					<br>
-				<br> Publication Year: <span style="color: #B13100;">${book.publicationYear}</span>
-					<br>
-				<br> <a
+					<br> <br> Rating: <span style="color: #B13100;">${book.amazonRating}</span>
+					<br> <br> Publication Year: <span style="color: #B13100;">${book.publicationYear}</span>
+					<br> <br> <a
 					href="<%=request.getContextPath()%>/bookmark/save?bid=${book.id}"
 					style="font-size: 18px; color: #0058A6; font-weight: bold; text-decoration: none">Save</a>
 				</td>
