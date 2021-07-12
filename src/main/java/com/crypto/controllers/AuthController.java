@@ -46,6 +46,7 @@ public class AuthController extends HttpServlet {
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}
 		}else {
+			request.getSession().invalidate();
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		

@@ -17,7 +17,7 @@ import com.crypto.entities.User;
 import com.crypto.services.BookmarkService;
 import com.crypto.services.UserService;
 
-@WebServlet(urlPatterns = { "/bookmark", "/bookmark/save", "/bookmark/markedbooks" })
+@WebServlet(urlPatterns = { "/bookmark", "/bookmark/save", "/bookmark/markedbooks", "/bookmark/remove" })
 public class BookmarkController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,24 +36,35 @@ public class BookmarkController extends HttpServlet {
 			throws ServletException, IOException {
 
 		RequestDispatcher dispatcher = null;
+
 		if (request.getSession().getAttribute("userId") != null) {
+			long userId = (long) request.getSession().getAttribute("userId");
 			if (request.getServletPath().contains("save")) {
 				// save
 				dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
 				String bookId = request.getParameter("bid");
-				User user = UserService.getInstance().getUser(5);
+				User user = UserService.getInstance().getUser(userId);
 				Bookmark bookmark = BookmarkService.getInstance().getBook(Long.parseLong(bookId));
 				BookmarkService.getInstance().saveUserBookmark(user, bookmark);
-				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, 5);
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, userId);
 				request.setAttribute("books", list);
 			} else if (request.getServletPath().contains("markedbooks")) {
 				// saved books
 				dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
-				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, 5);
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, userId);
+				request.setAttribute("books", list);
+			} else if (request.getServletPath().contains("remove")) {
+				// saved books
+				dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
+				String bookId = request.getParameter("bid");
+				User user = UserService.getInstance().getUser(userId);
+				Bookmark bookmark = BookmarkService.getInstance().getBook(Long.parseLong(bookId));
+				BookmarkService.getInstance().removeUserBookmark(user, bookmark);
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, userId);
 				request.setAttribute("books", list);
 			} else {
 				// 1. Get data from the Model
-				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(false, 5);
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(false, userId);
 				request.setAttribute("books", list);
 				System.out.println(list);
 

@@ -51,19 +51,19 @@ public class BookmarkDao {
 	private void saveUserWebLink(UserBookmark userBookmark, Statement stmt) throws SQLException {
 		String query = "insert into Users_WebLink(users_id, weblink_id) values (" + userBookmark.getUser().getId()
 				+ ", " + userBookmark.getBookmark().getId() + ")";
-		System.out.println("Rows inserted : " + stmt.executeUpdate(query) + " Users_WebLink table");
+		System.out.println("Rows inserted : " + stmt.executeUpdate(query) + " in Users_WebLink table");
 	}
 
 	private void saveUserMovie(UserBookmark userBookmark, Statement stmt) throws SQLException {
 		String query = "insert into Users_Movie(users_id, movie_id) values (" + userBookmark.getUser().getId() + ", "
 				+ userBookmark.getBookmark().getId() + ")";
-		System.out.println("Rows inserted : " + stmt.executeUpdate(query) + " Users_Movie table");
+		System.out.println("Rows inserted : " + stmt.executeUpdate(query) + " in Users_Movie table");
 	}
 
 	private void saveUserBook(UserBookmark userBookmark, Statement stmt) throws SQLException {
 		String query = "insert into Users_Book(users_id, book_id) values (" + userBookmark.getUser().getId() + ", "
 				+ userBookmark.getBookmark().getId() + ")";
-		System.out.println("Rows inserted : " + stmt.executeUpdate(query) + " Users_Book table");
+		System.out.println("Rows inserted : " + stmt.executeUpdate(query) + " in Users_Book table");
 	}
 
 	public List<WebLink> getAllWebLinks() {
@@ -136,5 +136,29 @@ public class BookmarkDao {
 
 	public Bookmark getBook(long bookId) {
 		return DataStore.getBook(bookId);
+	}
+
+	public void removeUserBookmark(UserBookmark userBookmark) {
+		if (userBookmark == null) {
+			System.out.println("User-Bookmark reference null");
+			return;
+		}
+		// Delete data from DB
+		try {
+			if (userBookmark.getBookmark() instanceof Book) {
+				removeUserBook(userBookmark);
+			} else {
+				System.out.println("Bookmark reference is not an instance of Book");
+			}
+			// LocalConnection.closeConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void removeUserBook(UserBookmark userBookmark) throws SQLException {
+		String query = "delete from Users_Book where users_id = " + userBookmark.getUser().getId() 
+				+ " and book_id = " + userBookmark.getBookmark().getId();
+		System.out.println("Rows deleted : " + stmt.executeUpdate(query) + " from Users_Book table");
 	}
 }

@@ -103,6 +103,14 @@ public class BookmarkService {
 		bookmarkDao.saveBookmark(userBookmark);
 	}
 
+	public void removeUserBookmark(User user, Bookmark bookmark) {
+		UserBookmark userBookmark = new UserBookmark();
+		userBookmark.setUser(user);
+		userBookmark.setBookmark(bookmark);
+
+		bookmarkDao.removeUserBookmark(userBookmark);
+	}
+	
 	public void setKidFriendlyStatus(User user, KidFriendlyStatus kidFriendlyStatus, Bookmark bookmark) {
 		bookmark.setKidFriendlyStatus(kidFriendlyStatus);
 		bookmark.setKidFriendlyMarkedBy(user);
