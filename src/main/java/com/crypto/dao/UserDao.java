@@ -16,4 +16,8 @@ public class UserDao {
 	public User getUser(long userId) {
 		return DataStore.getUser(userId);
 	}
+
+	public long authenticate(String email, String password) {
+		return DataStore.authenticate(email, password);
+	}
 }

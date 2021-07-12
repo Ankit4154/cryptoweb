@@ -6,6 +6,7 @@ import com.crypto.constants.Gender;
 import com.crypto.constants.UserType;
 import com.crypto.dao.UserDao;
 import com.crypto.entities.User;
+import com.crypto.util.StringUtil;
 
 public class UserService extends User {
 
@@ -40,6 +41,10 @@ public class UserService extends User {
 
 	public User getUser(long userId) {
 		return userDao.getUser(userId);
+	}
+
+	public long authenticate(String email, String password) {
+		return userDao.authenticate(email, StringUtil.encodePassword(password));		
 	}
 
 }

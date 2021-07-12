@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.crypto.constants.KidFriendlyStatus;
 import com.crypto.entities.Bookmark;
@@ -35,32 +36,35 @@ public class BookmarkController extends HttpServlet {
 			throws ServletException, IOException {
 
 		RequestDispatcher dispatcher = null;
-		if (request.getServletPath().contains("save")) {
-			// save
-			dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
-			String bookId = request.getParameter("bid");
-			User user = UserService.getInstance().getUser(5);
-			Bookmark bookmark = BookmarkService.getInstance().getBook(Long.parseLong(bookId));
-			BookmarkService.getInstance().saveUserBookmark(user, bookmark);
-			Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, 5);
-			request.setAttribute("books", list);
-		} else if (request.getServletPath().contains("markedbooks")) {
-			// saved books
-			dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
-			Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, 5);
-			request.setAttribute("books", list);
+		if (request.getSession().getAttribute("userId") != null) {
+			if (request.getServletPath().contains("save")) {
+				// save
+				dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
+				String bookId = request.getParameter("bid");
+				User user = UserService.getInstance().getUser(5);
+				Bookmark bookmark = BookmarkService.getInstance().getBook(Long.parseLong(bookId));
+				BookmarkService.getInstance().saveUserBookmark(user, bookmark);
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, 5);
+				request.setAttribute("books", list);
+			} else if (request.getServletPath().contains("markedbooks")) {
+				// saved books
+				dispatcher = request.getRequestDispatcher("/savedbooks.jsp");
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(true, 5);
+				request.setAttribute("books", list);
+			} else {
+				// 1. Get data from the Model
+				Collection<Bookmark> list = BookmarkService.getInstance().getBooks(false, 5);
+				request.setAttribute("books", list);
+				System.out.println(list);
+
+				// 2. Forwarding to View
+				dispatcher = request.getRequestDispatcher("/browse.jsp");
+			}
+
 		} else {
-			// 1. Get data from the Model
-			Collection<Bookmark> list = BookmarkService.getInstance().getBooks(false, 5);
-			request.setAttribute("books", list);
-			System.out.println(list);
-
-			// 2. Forwarding to View
-			dispatcher = request.getRequestDispatcher("/browse.jsp");
-
+			dispatcher = request.getRequestDispatcher("/login.jsp");
 		}
 		dispatcher.forward(request, response);
-
 	}
 
 	/**

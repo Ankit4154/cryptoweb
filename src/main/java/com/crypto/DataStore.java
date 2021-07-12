@@ -430,4 +430,22 @@ public class DataStore {
 		}
 		return book;
 	}
+
+	public static long authenticate(String email, String password) {
+		String query = "SELECT id FROM Users WHERE email = '" + email + "' AND password = '" + password + "'";
+
+		long validated = -1;
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				validated = rs.getLong("id");
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Query : " + query);
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return validated;
+	}
 }
