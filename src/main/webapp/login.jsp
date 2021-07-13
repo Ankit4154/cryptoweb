@@ -35,6 +35,10 @@
         </table>
 	  </fieldset>      
     </form>
-
+	<footer>
+			Request User agent : <%= request.getHeader("User-Agent") %>
+			<br><br>
+			Request language : <%= request.getLocale() %>
+	<footer>
 </body>
 </html>
