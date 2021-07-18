@@ -14,8 +14,6 @@
 		<input type="submit" value="submit" />	
 	
 	</form>
-	<br>
-	Item entered : <%= request.getParameter("item")%>
 	
 	<!-- Add new item to To-Do list -->
 	<%
@@ -29,11 +27,22 @@
 		}
 		// see if there is form data to add
 		String item = request.getParameter("item");
-		if(item != null){
-			items.add(item);
+		if(item != null && !item.trim().equals("")){
+			if(!items.contains(item)){
+				items.add(item);
+			}
 		}
 	%>
 	<!-- Display all To-Do items from session -->
-	
+	<hr>
+	<b>To List items :</b>
+	<br>
+	<ol>
+		<%
+			for(String x : items){
+				out.println("<li>" + x + "</li>");
+			}
+		%>
+	</ol>
 </body>
 </html>
