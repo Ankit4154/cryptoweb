@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>To Do List</title>
 </head>
 <body>
 	<!-- Create HTML form -->
@@ -14,6 +14,7 @@
 		<input type="submit" value="submit" />	
 	
 	</form>
+	
 	
 	<!-- Add new item to To-Do list -->
 	<%
@@ -33,6 +34,7 @@
 			}
 		}
 	%>
+	
 	<!-- Display all To-Do items from session -->
 	<hr>
 	<b>To List items :</b>
@@ -44,5 +46,29 @@
 			}
 		%>
 	</ol>
+	
+	<hr>
+	<br><br>
+	Your favorite language has been set to : 
+	<%
+	
+		//String cookieName = request.getHeader("Cookie");
+		//System.out.println("cookieName : "+cookieName);
+		//out.println(cookieName);
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("app.favoriteLang")){
+					out.println(cookie.getValue());
+					break;
+				}
+			}
+		}
+	%>
+	<br><br>
+	<a href="cookies-personalize.jsp"> CookiesForm </a>
+	<br><br>
+	<a href="to-dolist.jsp"> Homepage </a>
+	
 </body>
 </html>

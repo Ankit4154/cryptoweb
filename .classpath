@@ -10,6 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Program Files/TOMEE167/lib/servlet-api.jar">
 		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Program%20Files/TOMEE167/docs/tomcat-8.5-doc/servletapi/"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
