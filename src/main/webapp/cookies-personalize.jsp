@@ -40,7 +40,13 @@
 	From existing cookie : 
 	<%
 		String cookieName = request.getHeader("Cookie");
-		out.println(cookieName.substring(cookieName.indexOf("Lang=")+5, cookieName.length()));
+		int langInd = cookieName.indexOf("Lang=")+5;
+		int semiInd = cookieName.indexOf(";", langInd);
+		if(semiInd != -1){
+			out.println(cookieName.substring(langInd, semiInd) + " Empty ");
+		}else {
+			out.println(cookieName.substring(langInd, cookieName.length()));
+		}
 	%>
 	<br><br>
 	<a href="to-dolist.jsp"> Homepage </a>

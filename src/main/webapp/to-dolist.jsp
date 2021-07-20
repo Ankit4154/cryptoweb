@@ -48,24 +48,29 @@
 	</ol>
 	
 	<hr>
-	<br><br>
-	Your favorite language has been set to : 
-	<%
-	
-		//String cookieName = request.getHeader("Cookie");
-		//System.out.println("cookieName : "+cookieName);
-		//out.println(cookieName);
-		Cookie[] cookies = request.getCookies();
-		if(cookies != null) {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("app.favoriteLang")){
-					out.println(cookie.getValue());
-					break;
+	<p>
+		Your favorite language has been set to : 
+		<%
+			//Default language
+			String favoriteLang = "English";
+		
+			//String cookieName = request.getHeader("Cookie");
+			//System.out.println("cookieName : "+cookieName);
+			//out.println(cookieName);
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null) {
+				for(Cookie cookie : cookies) {
+					if(cookie.getName().equals("app.favoriteLang")){
+						//out.println(cookie.getValue());
+						favoriteLang = cookie.getValue();
+						break;
+					}
 				}
 			}
-		}
-	%>
-	<br><br>
+		%>
+		<h4><%= favoriteLang %></h4>
+	</p>
+	<hr>
 	<a href="cookies-personalize.jsp"> CookiesForm </a>
 	<br><br>
 	<a href="to-dolist.jsp"> Homepage </a>
