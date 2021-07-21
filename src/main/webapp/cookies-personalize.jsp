@@ -36,18 +36,18 @@ response.addCookie(cookie);
 	<br>
 	<br> From existing cookie :
 	<%
-	String cookieName = request.getHeader("Cookie");
-	int langInd = cookieName.indexOf("Lang=") + 5;
-	int semiInd = cookieName.indexOf(";", langInd);
-	if (semiInd != -1) {
-		if (cookieName.substring(langInd, semiInd).isEmpty() || cookieName.substring(langInd, semiInd).isBlank()) {
-			out.println(" Empty ");
+		String cookieName = request.getHeader("Cookie");
+		int langInd = cookieName.indexOf("Lang=") + 5;
+		int semiInd = cookieName.indexOf(";", langInd);
+		if (semiInd != -1) {
+			if (cookieName.substring(langInd, semiInd).isEmpty() || cookieName.substring(langInd, semiInd).isBlank()) {
+				out.println(" Empty ");
+			} else {
+				out.println(cookieName.substring(langInd, semiInd));
+			}
 		} else {
-			out.println(cookieName.substring(langInd, semiInd));
+			out.println(cookieName.substring(langInd, cookieName.length()));
 		}
-	} else {
-		out.println(cookieName.substring(langInd, cookieName.length()));
-	}
 	%>
 	<br>
 	<br>

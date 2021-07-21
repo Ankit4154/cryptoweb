@@ -54,9 +54,6 @@
 			//Default language
 			String favoriteLang = "English";
 		
-			//String cookieName = request.getHeader("Cookie");
-			//System.out.println("cookieName : "+cookieName);
-			//out.println(cookieName);
 			Cookie[] cookies = request.getCookies();
 			if(cookies != null) {
 				for(Cookie cookie : cookies) {
