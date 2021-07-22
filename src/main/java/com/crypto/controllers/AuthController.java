@@ -39,8 +39,8 @@ public class AuthController extends HttpServlet {
 			if(userId != -1) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userId);
-				session.setMaxInactiveInterval(60);
-				request.getRequestDispatcher("bookmark/markedbooks").forward(request, response);
+				session.setMaxInactiveInterval(60*60);
+				request.getRequestDispatcher("bookmark").forward(request, response);
 			}else {
 				System.out.println("User-password mismatch/not found");
 				request.getRequestDispatcher("/login.jsp").forward(request, response);

@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Books!</title>
 </head>
 <body style="font-family:Arial;font-size:20px;">
-<div style="height:65px;align: center;background: #2075E5;font-family: Arial;color: white;"">
+<div style="height:65px;align: center;background: #2075E5;font-family: Arial;color: white;">
 	<br><b>
 	<a href="" style="font-family:garamond;font-size:34px;margin:0 0 0 10px;color:white;text-decoration: none;">Books<i> Save it!</i></a></b>            	    	
 </div>
@@ -35,10 +33,10 @@
         </table>
 	  </fieldset>      
     </form>
-	<footer>
+	<p style="font-size: 15px">
 			Request User agent : <%= request.getHeader("User-Agent") %>
 			<br><br>
 			Request language : <%= request.getLocale() %>
-	<footer>
+	<p>
 </body>
 </html>

@@ -1,22 +1,39 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="Locale"
+	value="${not empty param.Locale ? param.Locale : pageContext.request.locale}"
+	scope="session" />
+<fmt:setLocale value="${Locale}" />
+<fmt:setBundle basename="com.crypto.i18n.resources.labels" />
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Books!</title>
 </head>
 <body style="font-family: Arial; font-size: 20px;">
 	<div
-		style="height: 65px; align: center; background: #2075E5; font-family: Arial; color: white;"">
-		<br>
-		<b> <a href=""
+		style="height: 65px; align: center; background: #2075E5; font-family: Arial; color: white;">
+		<br> <b> <a href=""
 			style="font-family: garamond; font-size: 34px; margin: 0 0 0 10px; color: white; text-decoration: none;">Books<i>
 					Save it!</i></a></b>
 	</div>
 	<div
 		style="height: 25px; background: #2075E5; font-family: Arial; color: white;">
-		<b> <a href="<%=request.getContextPath()%>/bookmark"
-			style="font-size: 16px; color: white; margin-left: 1150px; text-decoration: none;">Browse</a>
+		<b> <a
+			href="<%=request.getContextPath()%>/bookmark/markedbooks?Locale=de_DE"
+			style="font-size: 16px; color: white; margin-left: 10px; text-decoration: none;">German
+				(DE)</a> <a
+			href="<%=request.getContextPath()%>/bookmark/markedbooks?Locale=es_ES"
+			style="font-size: 16px; color: white; margin-left: 10px; text-decoration: none;">Spanish
+				(ES)</a> <a
+			href="<%=request.getContextPath()%>/bookmark/markedbooks?Locale=hi_IN"
+			style="font-size: 16px; color: white; margin-left: 10px; text-decoration: none;">Hindi
+				(IN)</a> <a href="<%=request.getContextPath()%>/bookmark/markedbooks"
+			style="font-size: 16px; color: white; margin-left: 10px; text-decoration: none;">English
+				(US)</a> <a href="<%=request.getContextPath()%>/bookmark"
+			style="font-size: 16px; color: white; margin-left: 50%; text-decoration: none;">Browse</a>
 			<a href="<%=request.getContextPath()%>/auth/logout"
 			style="font-size: 16px; color: white; margin-left: 10px; text-decoration: none;">Logout</a>
 		</b>
@@ -37,9 +54,11 @@
 						<td><img src="${book.imageUrl}" width="175" height="200">
 						</td>
 
-						<td style="color: gray;">By <span style="color: #B13100;">${book.authors[0]}</span>
-							<br> <br> Rating: <span style="color: #B13100;">${book.amazonRating}</span>
-							<br> <br> Publication Year: <span
+						<td style="color: gray;"><fmt:message key="label.by" />: <span
+							style="color: #B13100;">${book.authors[0]}</span> <br> <br>
+							<fmt:message key="label.rating" />: <span
+							style="color: #B13100;">${book.amazonRating}</span> <br> <br>
+							<fmt:message key="label.publicationYear" />: <span
 							style="color: #B13100;">${book.publicationYear}</span> <br>
 							<br> <a
 							href="<%=request.getContextPath()%>/bookmark/remove?bid=${book.id}"
