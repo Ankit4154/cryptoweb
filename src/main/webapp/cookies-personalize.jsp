@@ -36,21 +36,21 @@ response.addCookie(cookie);
 	<br>
 	<br> From existing cookie :
 	<%
-		String cookieName = request.getHeader("Cookie");
-		int langInd = cookieName.indexOf("Lang=") + 5;
-		int semiInd = cookieName.indexOf(";", langInd);
-		if (semiInd != -1) {
-			if (cookieName.substring(langInd, semiInd).isEmpty() || cookieName.substring(langInd, semiInd).isBlank()) {
-				out.println(" Empty ");
-			} else {
-				out.println(cookieName.substring(langInd, semiInd));
-			}
+	String cookieName = request.getHeader("Cookie");
+	int langInd = cookieName.indexOf("Lang=") + 5;
+	int semiInd = cookieName.indexOf(";", langInd);
+	if (semiInd != -1) {
+		if (cookieName.substring(langInd, semiInd).isEmpty() || cookieName.substring(langInd, semiInd).isBlank()) {
+			out.println(" Empty ");
 		} else {
-			out.println(cookieName.substring(langInd, cookieName.length()));
+			out.println(cookieName.substring(langInd, semiInd));
 		}
+	} else {
+		out.println(cookieName.substring(langInd, cookieName.length()));
+	}
 	%>
 	<br>
 	<br>
-	<a href="to-dolist.jsp"> Homepage </a>
+	<a href="to-dolist.jsp"> Return to Homepage</a>
 </body>
 </html>
