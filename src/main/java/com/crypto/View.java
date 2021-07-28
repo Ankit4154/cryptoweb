@@ -20,7 +20,7 @@ public class View {
 		int bookmarkCount = 0;
 		for (List<Bookmark> bookmarkList : bookmarks) {
 			for (Bookmark bookmark : bookmarkList) {
-				// Bookmarking
+				// Bookmarking feature
 				//if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
 					boolean isBookmarked = getBookmarkDecision(bookmark);
 					if (isBookmarked) {
