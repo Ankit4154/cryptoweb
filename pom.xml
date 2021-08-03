@@ -27,6 +27,7 @@
         <version>3.2.3</version>
         <configuration>
            <outputDirectory>C:\Program Files\TOMEE167\webapps</outputDirectory>
+           <warName>${project.artifactId}</warName>
         </configuration>
       </plugin>
     </plugins>
