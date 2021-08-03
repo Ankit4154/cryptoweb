@@ -5,14 +5,6 @@
   <version>1.0</version>
   <packaging>war</packaging>
   <name>cryptoweb</name>
-  <profiles>
-    <profile>
-        <id>Tomee-WebApps</id>
-        <build>
-            <directory>C:\Program Files\TOMEE167\webapps</directory>
-        </build>
-    </profile>
-  </profiles>
   <build>
     <resources>
       <resource>
@@ -33,6 +25,9 @@
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.3</version>
+        <configuration>
+           <outputDirectory>C:\Program Files\TOMEE167\webapps</outputDirectory>
+        </configuration>
       </plugin>
     </plugins>
   </build>
