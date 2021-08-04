@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="Locale" value="${not empty param.Locale ? param.Locale : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${Locale}" />
-<fmt:setBundle basename="com.crypto.i18n.resources.labels" />
+<fmt:setBundle basename="com.crypto.i18n.labels" />
 
 <!DOCTYPE html>
 <html>
