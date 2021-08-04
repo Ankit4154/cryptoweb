@@ -5,7 +5,7 @@
 	value="${not empty param.Locale ? param.Locale : pageContext.request.locale}"
 	scope="session" />
 <fmt:setLocale value="${Locale}" />
-<fmt:setBundle basename="com.crypto.i18n.resources.labels" />
+<fmt:setBundle basename="com.crypto.i18n.labels" />
 
 <!DOCTYPE html>
 <html>
