@@ -47,22 +47,24 @@
 	</ol>
 
 	<hr>
-	<p>Your favorite language has been set to :
+	<p>
+		Your favorite language has been set to :
 		<%
-		//Default language
-		String favoriteLang = "English";
-	
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("app.favoriteLang")) {
-			//out.println(cookie.getValue());
-			favoriteLang = cookie.getValue();
-			break;
+			//Default language
+			String favoriteLang = "English";
+		
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("app.favoriteLang")) {
+				//out.println(cookie.getValue());
+				favoriteLang = cookie.getValue();
+				break;
+					}
 				}
 			}
-		}
 		%>
+		
 		<h4><%=favoriteLang%></h4>
 	</p>
 	<hr>
