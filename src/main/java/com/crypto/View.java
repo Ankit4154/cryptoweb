@@ -1,11 +1,9 @@
 package com.crypto;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.crypto.constants.KidFriendlyStatus;
 import com.crypto.constants.UserType;
-import com.crypto.controllers.BookmarkController;
 import com.crypto.entities.Bookmark;
 import com.crypto.entities.User;
 import com.crypto.partner.Shareable;
