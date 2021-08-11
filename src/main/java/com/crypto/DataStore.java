@@ -1,6 +1,6 @@
 package com.crypto;
 
-import java.sql.Date;
+/*import java.sql.Date;*/
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -80,8 +80,8 @@ public class DataStore {
 			Gender gender = Gender.values()[genderId];
 			int userTypeId = rs.getInt("user_type_id");
 			UserType userType = UserType.values()[userTypeId];
-			Date createdDate = rs.getDate("created_date");
-			/*
+			
+			/*Date createdDate = rs.getDate("created_date");
 			 * System.out.println("Created date: " + createdDate);
 			 * 
 			 * System.out.println("id: " + id + ", email: " + email + ", password: " +
@@ -142,8 +142,9 @@ public class DataStore {
 			String title = rs.getString("title");
 			String url = rs.getString("url");
 			String host = rs.getString("host");
-			Date createdDate = rs.getDate("created_date");
+
 			/*
+			 * Date createdDate = rs.getDate("created_date");
 			 * System.out.println("Created date: " + createdDate);
 			 * 
 			 * System.out.println("id: " + id + ", title: " + title + ", url: " + url +
@@ -216,8 +217,7 @@ public class DataStore {
 			BookGenre genre = BookGenre.values()[genreId];
 			double amazonRating = rs.getDouble("amazon_rating");
 
-			Date createdDate = rs.getDate("created_date");
-			/*
+			 /*  Date createdDate = rs.getDate("created_date");
 			 * System.out.println("createdDate: " + createdDate);
 			 * 
 			 * System.out.println("id: " + id + ", title: " + title + ", publication year: "
@@ -293,9 +293,8 @@ public class DataStore {
 			int genreId = rs.getInt("movie_genre_id");
 			MovieGenre genre = MovieGenre.values()[genreId];
 			double imdbRating = rs.getDouble("imdb_rating");
-			Date createdDate = rs.getDate("created_date");
-
-			/*
+			
+			/* Date createdDate = rs.getDate("created_date");
 			 * System.out.println("createdDate: " + createdDate);
 			 * 
 			 * System.out.println("id: " + id + ", title: " + title + ", release year: " +
@@ -364,8 +363,7 @@ public class DataStore {
 				Gender gender = Gender.values()[genderId];
 				int userTypeId = rs.getInt("user_type_id");
 				UserType userType = UserType.values()[userTypeId];
-				Date createdDate = rs.getDate("created_date");
-				/*
+				/* Date createdDate = rs.getDate("created_date");
 				 * System.out.println("Created date: " + createdDate);
 				 * 
 				 * System.out.println("id: " + id + ", email: " + email + ", password: " +
@@ -404,9 +402,7 @@ public class DataStore {
 				BookGenre genre = BookGenre.values()[genreId];
 				double amazonRating = rs.getDouble("amazon_rating");
 
-				Date createdDate = rs.getDate("created_date");
-
-				/*
+				/*Date createdDate = rs.getDate("created_date");
 				 * System.out.println("createdDate: " + createdDate);
 				 * 
 				 * System.out.println("id: " + id + ", title: " + title + ", publication year: "
